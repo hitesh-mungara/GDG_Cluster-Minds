@@ -1,0 +1,8 @@
+name: critical_findings_count
+description: Critical vulnerabilities found per scan
+filter: resource.type="cloud_run_revision" AND resource.labels.service_name="trivy-api" AND jsonPayload.event="scan_completed"
+valueExtractor: EXTRACT(jsonPayload.critical_count)
+metricDescriptor:
+  metricKind: DELTA
+  valueType: DISTRIBUTION
+  unit: "1"

@@ -1,0 +1,136 @@
+{
+  "displayName": "Trivy Scanner Observability V2",
+  "gridLayout": {
+    "columns": "2",
+    "widgets": [
+      {
+        "title": "Successful Scans",
+        "scorecard": {
+          "timeSeriesQuery": {
+            "timeSeriesFilter": {
+              "filter": "metric.type=\"logging.googleapis.com/user/scan_completed_count\"",
+              "aggregation": {
+                "alignmentPeriod": "60s",
+                "perSeriesAligner": "ALIGN_DELTA",
+                "crossSeriesReducer": "REDUCE_SUM"
+              }
+            }
+          },
+          "sparkChartView": {
+            "sparkChartType": "SPARK_LINE"
+          }
+        }
+      },
+      {
+        "title": "Failed Scans",
+        "scorecard": {
+          "timeSeriesQuery": {
+            "timeSeriesFilter": {
+              "filter": "metric.type=\"logging.googleapis.com/user/scan_failed_count\"",
+              "aggregation": {
+                "alignmentPeriod": "60s",
+                "perSeriesAligner": "ALIGN_DELTA",
+                "crossSeriesReducer": "REDUCE_SUM"
+              }
+            }
+          },
+          "sparkChartView": {
+            "sparkChartType": "SPARK_LINE"
+          }
+        }
+      },
+      {
+        "title": "Scan Duration Seconds P95",
+        "xyChart": {
+          "dataSets": [
+            {
+              "timeSeriesQuery": {
+                "timeSeriesFilter": {
+                  "filter": "metric.type=\"logging.googleapis.com/user/scan_duration_seconds\"",
+                  "aggregation": {
+                    "alignmentPeriod": "60s",
+                    "perSeriesAligner": "ALIGN_PERCENTILE_95",
+                    "crossSeriesReducer": "REDUCE_MEAN"
+                  }
+                }
+              },
+              "plotType": "LINE"
+            }
+          ],
+          "chartOptions": {
+            "mode": "COLOR"
+          }
+        }
+      },
+      {
+        "title": "Critical Vulnerabilities Found",
+        "xyChart": {
+          "dataSets": [
+            {
+              "timeSeriesQuery": {
+                "timeSeriesFilter": {
+                  "filter": "metric.type=\"logging.googleapis.com/user/critical_findings_count\"",
+                  "aggregation": {
+                    "alignmentPeriod": "60s",
+                    "perSeriesAligner": "ALIGN_PERCENTILE_50",
+                    "crossSeriesReducer": "REDUCE_MEAN"
+                  }
+                }
+              },
+              "plotType": "LINE"
+            }
+          ],
+          "chartOptions": {
+            "mode": "COLOR"
+          }
+        }
+      },
+      {
+        "title": "Cloud Run API Request Count",
+        "xyChart": {
+          "dataSets": [
+            {
+              "timeSeriesQuery": {
+                "timeSeriesFilter": {
+                  "filter": "metric.type=\"run.googleapis.com/request_count\" resource.type=\"cloud_run_revision\" resource.label.\"service_name\"=\"trivy-api\"",
+                  "aggregation": {
+                    "alignmentPeriod": "60s",
+                    "perSeriesAligner": "ALIGN_RATE",
+                    "crossSeriesReducer": "REDUCE_SUM"
+                  }
+                }
+              },
+              "plotType": "LINE"
+            }
+          ],
+          "chartOptions": {
+            "mode": "COLOR"
+          }
+        }
+      },
+      {
+        "title": "Cloud Run 5xx Errors",
+        "xyChart": {
+          "dataSets": [
+            {
+              "timeSeriesQuery": {
+                "timeSeriesFilter": {
+                  "filter": "metric.type=\"run.googleapis.com/request_count\" resource.type=\"cloud_run_revision\" resource.label.\"service_name\"=\"trivy-api\" metric.label.\"response_code_class\"=\"5xx\"",
+                  "aggregation": {
+                    "alignmentPeriod": "60s",
+                    "perSeriesAligner": "ALIGN_RATE",
+                    "crossSeriesReducer": "REDUCE_SUM"
+                  }
+                }
+              },
+              "plotType": "LINE"
+            }
+          ],
+          "chartOptions": {
+            "mode": "COLOR"
+          }
+        }
+      }
+    ]
+  }
+}
