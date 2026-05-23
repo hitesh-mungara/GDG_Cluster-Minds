@@ -1,0 +1,31 @@
+runtime: python311
+
+# This tells App Engine to use the default service
+service: default
+
+# Environment variables (DO NOT put sensitive data here)
+# Set secrets using: gcloud run services update SERVICE --set-env-vars KEY=VALUE
+env_variables:
+  PYTHON_VERSION: "3.11"
+
+# Entrypoint for the application
+entrypoint: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+
+# Automatic scaling configuration
+automatic_scaling:
+  min_instances: 0
+  max_instances: 10
+  target_cpu_utilization: 0.65
+  target_throughput_utilization: 0.65
+
+# Instance resources
+instance_class: F2
+
+# Handlers
+handlers:
+- url: /.*
+  script: auto
+  secure: always
+  redirect_http_response_code: 301
+
+# Made with Bob

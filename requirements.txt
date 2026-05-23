@@ -1,0 +1,25 @@
+# Install core packages first
+fastapi
+uvicorn[standard]
+python-multipart
+requests
+python-dotenv
+
+# Git operations
+GitPython
+
+# AI and LangChain - install separately if needed
+# langchain
+# langgraph
+# langchain-google-genai
+
+# Vector database - install separately if needed
+# chromadb
+
+# Frontend - install separately if needed
+# streamlit
+
+# Monitoring - optional, install separately if needed
+# langfuse
+# opentelemetry-api
+# opentelemetry-sdk

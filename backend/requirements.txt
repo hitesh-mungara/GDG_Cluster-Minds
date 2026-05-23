@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+python-multipart
+GitPython
+requests
+langchain
+langgraph
+langchain-google-genai
+chromadb
+streamlit
+pandas
+langfuse
+opentelemetry-api
+opentelemetry-sdk
